@@ -115,7 +115,7 @@ def generate_architectural_did():
         ["Fire Safety", "NFPA 101 Life Safety Code", "Fire safety review"],
     ]
 
-    generator.add_table(5, 3, header_row=headers, data=data)
+    generator.add_table(6, 3, header_row=headers, data=data)
 
     # 5. SECTION: MATERIAL SPECIFICATIONS
     generator.add_heading("Material Specifications", level=1)
@@ -181,7 +181,7 @@ Wind Load: 1.0 DL + 1.6 W
         ["Roof Assembly", "1:4", "ROF-004.dwg", "2024-10-20"],
     ]
 
-    generator.add_table(4, 4, header_row=detail_headers, data=detail_data)
+    generator.add_table(5, 4, header_row=detail_headers, data=detail_data)
 
     # 8. SECTION: QUALITY ASSURANCE
     generator.add_heading("Quality Assurance", level=1)
@@ -240,7 +240,7 @@ Wind Load: 1.0 DL + 1.6 W
         ["Elevators", "Required > 3 stories", "In all buildings preferred"],
     ]
 
-    generator.add_table(4, 3, header_row=access_headers, data=access_data)
+    generator.add_table(5, 3, header_row=access_headers, data=access_data)
 
     # 11. CONCLUSION
     generator.add_page_break()
@@ -342,7 +342,7 @@ def generate_uiux_did():
         ["Navigation", "Top Nav, Side Nav", "navigation.figma"],
     ]
 
-    generator.add_table(4, 3, header_row=["Component", "Variants", "File"], data=components)
+    generator.add_table(5, 3, header_row=["Component", "Variants", "File"], data=components)
 
     # Footer
     generator.add_footer_with_page_numbers("UI/UX Design System v1.0.0")
