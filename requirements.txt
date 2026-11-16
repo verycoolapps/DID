@@ -1,0 +1,24 @@
+# DID DOCX Generator - Production Dependencies
+
+# Core DOCX document generation library
+# Enables creating, reading, and manipulating Microsoft Word (.docx) files
+# Used for all document structure, styling, and content generation
+python-docx>=0.8.11
+
+# Image processing for embedding images in DOCX documents
+# Handles image format conversion and optimization when inserting graphics
+# Required for cover images and design reference images
+pillow>=9.0.0
+
+# XML processing library (used by python-docx internally)
+# Improves XML parsing performance and stability
+# Recommended alongside python-docx for production use
+lxml>=4.9.0
+
+# Environment variable management for configuration
+# Loads configuration from .env files for paths, fonts, colors, margins
+python-dotenv>=0.19.0
+
+# Type checking and validation (optional, for development)
+# Useful for catching type errors early in development
+# pydantic>=1.10.0

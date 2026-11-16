@@ -1,0 +1,625 @@
+DID - DESIGN INSTRUCTIONS DOCUMENT
+CUSTOM PROPRIETARY LICENSE AGREEMENT
+Version 1.0 | Effective Date: November 17, 2026
+
+================================================================================
+PREAMBLE & LEGAL NOTICE
+================================================================================
+
+This is a legal agreement ("Agreement") between PT. Agra Karya Digital, a company
+registered in Indonesia ("Licensor"), and any individual or organization using
+the DID (Design Instructions Document) skill package, source code, documentation,
+and related materials ("Licensee").
+
+The DID skill package, including but not limited to source code, documentation,
+templates, design patterns, methodologies, and all intellectual property contained
+therein, is proprietary to PT. Agra Karya Digital. All rights not explicitly
+granted herein are reserved exclusively to the Licensor.
+
+MODIFICATION OF TERMS: PT. Agra Karya Digital reserves the right to modify these
+license terms at any time. Continued use constitutes acceptance of modified terms.
+
+================================================================================
+I. COPYRIGHTS AND OWNERSHIP
+================================================================================
+
+1.1 COPYRIGHT ASSERTION
+
+    Copyright © 2024-2026 PT. Agra Karya Digital. All rights reserved.
+
+    PT. Agra Karya Digital asserts full copyright ownership of:
+    - All source code and compiled binaries
+    - All documentation and instructional materials
+    - All design systems, patterns, and methodologies
+    - All templates, examples, and reference implementations
+    - All brand assets, logos, and visual identity materials
+    - All derivative works, improvements, and enhancements
+    - All content in HTML, Markdown, PDF, and digital formats
+    - All trade secrets and proprietary information
+
+1.2 TRADEMARK PROTECTION
+
+    "DID", "Design Instructions Document", and related marks are trademarks
+    of PT. Agra Karya Digital. These trademarks are protected in Indonesia
+    and internationally.
+
+    Licensee shall NOT:
+    - Use the DID trademark for any purpose without written permission
+    - Register the DID trademark or similar marks
+    - Use DID in any way that creates confusion with the official product
+    - Modify or alter the DID trademark or logo
+    - Use the DID trademark in domain names, company names, or product names
+
+1.3 INTELLECTUAL PROPERTY RIGHTS
+
+    All intellectual property rights in the DID skill package, including but
+    not limited to design methodologies, process flows, component architectures,
+    and best practices, are exclusively owned by PT. Agra Karya Digital.
+
+================================================================================
+II. LICENSE GRANT AND RESTRICTIONS
+================================================================================
+
+2.1 PERMITTED USE
+
+    PT. Agra Karya Digital grants Licensee a non-exclusive, non-transferable,
+    revocable license to use the DID skill package, subject to the following
+    conditions:
+
+    a) Internal Use Only
+       - Use within your organization or company
+       - Use by authorized employees and contractors only
+       - Use for internal business purposes
+       - Use for educational and reference purposes
+
+    b) Modification Rights
+       - Modify source code for internal use only
+       - Create derivative works for internal purposes
+       - Customize templates and documentation internally
+       - Adapt patterns to your specific needs
+
+    c) Attribution Requirements
+       - Maintain all copyright notices and attributions
+       - Include this license with any modifications
+       - Acknowledge PT. Agra Karya Digital in documentation
+       - Provide attribution in any public references
+       - Display copyright notice in prominent locations
+
+2.2 PROHIBITED CONDUCT
+
+    Licensee shall NOT:
+
+    a) Plagiarism and Unauthorized Copying
+       - Copy the DID package or components for resale
+       - Reproduce documentation as your own work
+       - Claim authorship of PT. Agra Karya Digital materials
+       - Present the skill package as your original creation
+       - Use the DID package to create competing products
+
+    b) Rebranding and Misrepresentation
+       - Rebrand the DID skill package under a different name
+       - Remove or alter copyright and authorship notices
+       - Represent the DID package as being created by you
+       - Use DID components without proper attribution
+       - Modify the DID branding or visual identity
+       - Register domains or trademarks using "DID" or confusingly similar marks
+
+    c) Commercial Redistribution
+       - Sell the DID skill package without a commercial license
+       - Distribute the DID package as a standalone product
+       - Offer DID as a service without authorization
+       - Create SaaS or cloud-based products using DID without license
+       - License the DID package to third parties
+       - Bundle DID with other products for commercial sale
+       - Use DID in any revenue-generating context without permission
+
+    d) Derivative Work Restrictions
+       - Create derivative works for public distribution
+       - Publish modified versions of the DID package
+       - Share modifications with external parties without permission
+       - Use DID as the basis for a competing skill or product
+       - Sublicense or redistribute derivative works
+       - Create open-source versions of DID components
+
+    e) Distribution Restrictions
+       - Share the DID package with unauthorized parties
+       - Upload to public repositories without permission
+       - Distribute via package managers without authorization
+       - Mirror or host the DID package externally
+       - Create copies for distribution to third parties
+       - Share access credentials or installation files
+
+    f) Intellectual Property Violations
+       - Disclose trade secrets or proprietary methodologies
+       - Reverse engineer the DID package
+       - Decompile or disassemble any binaries
+       - Extract or reproduce design patterns for independent use
+       - Create competing products based on DID internals
+       - Use DID methodologies as your own intellectual property
+
+    g) Commercial Licensing Violations
+       - Use DID in commercial products without an enterprise license
+       - Use DID for client projects, consulting, or freelance work
+       - Use DID as part of paid services or solutions
+       - Integrate DID into products offered to customers
+       - Use DID for projects where you receive compensation
+       - Use DID in any context involving revenue or profit
+
+================================================================================
+III. ANTI-PLAGIARISM AND AUTHENTICITY PROVISIONS
+================================================================================
+
+3.1 PLAGIARISM PREVENTION
+
+    Licensee acknowledges that plagiarism is a serious violation of this license
+    and intellectual property law. Specifically:
+
+    a) Definition of Plagiarism
+       - Presenting DID materials as your own original work
+       - Copying documentation without attribution
+       - Adapting DID components without acknowledgment
+       - Publishing DID-derived content without credit
+       - Using DID methodologies without proper attribution
+
+    b) Plagiarism Detection
+       - PT. Agra Karya Digital may monitor for plagiarism
+       - Unauthorized use will be tracked and documented
+       - Plagiarism cases may be reported to relevant authorities
+       - Public records of violations may be maintained
+
+    c) Consequences of Plagiarism
+       - Immediate license revocation
+       - Legal action for copyright infringement
+       - Damages and legal fees may be assessed
+       - Public disclosure of violation
+       - Removal from authorized user list
+       - Criminal referral if applicable
+
+3.2 AUTHENTICITY GUARANTEE
+
+    Licensee certifies that:
+    - All representations about DID usage are accurate and truthful
+    - DID will not be misrepresented as Licensee's own work
+    - Attribution will be properly maintained
+    - No plagiarism or misappropriation will occur
+    - Licensee has authority to agree to these terms
+    - Licensee will comply with all applicable laws
+
+================================================================================
+IV. ATTRIBUTION AND CREDIT REQUIREMENTS
+================================================================================
+
+4.1 MANDATORY ATTRIBUTION
+
+    In all contexts where DID is used or referenced, Licensee must:
+
+    a) Include Attribution Statement
+       "Design Instructions Document (DID) © 2024-2026 PT. Agra Karya Digital.
+        All rights reserved."
+
+    b) Provide Notice of License
+       Reference this license and link to the official license document
+
+    c) Acknowledge the Licensor
+       Clearly identify PT. Agra Karya Digital as the creator
+
+    d) Maintain Copyright Notices
+       Keep all copyright notices intact and visible
+
+4.2 PUBLIC ATTRIBUTION
+
+    If DID is used in any publicly visible context, attribution must be:
+    - Clearly visible
+    - Prominent and legible
+    - In proximity to the DID content
+    - Included in documentation and credits
+    - Mentioned in any promotional materials
+
+4.3 DOCUMENTATION ATTRIBUTION
+
+    When using DID documentation:
+    - Maintain all header and footer notices
+    - Keep copyright lines unaltered
+    - Include license information in distributed copies
+    - Reference the original source in derivative documents
+
+================================================================================
+V. COMMERCIAL USE AND LICENSING
+================================================================================
+
+5.1 COMMERCIAL LICENSE REQUIREMENT
+
+    Licensee MAY NOT engage in any commercial activity using DID without
+    an explicit written commercial license from PT. Agra Karya Digital.
+
+    Commercial activities include but are not limited to:
+    - Using DID in products or services offered to clients
+    - Using DID in consulting or professional services
+    - Using DID as the basis for a commercial product
+    - Integrating DID into enterprise solutions
+    - Using DID in any project where compensation is received
+    - Using DID in SaaS, cloud, or web-based applications
+    - Reselling or redistributing DID or derived products
+    - Licensing DID to others
+
+5.2 ENTERPRISE LICENSE
+
+    For commercial use, Licensee must obtain an Enterprise License Agreement
+    from PT. Agra Karya Digital. Contact: licensing@vcadeveloper.com
+
+    Enterprise licenses include:
+    - Rights to use DID commercially
+    - Support and updates
+    - Customization options
+    - Multi-team or multi-organization use
+    - SaaS and cloud deployment rights
+    - Custom branding and white-label options
+
+5.3 PRICING AND NEGOTIATION
+
+    Commercial licensing fees are negotiable based on:
+    - Scope of use and deployment scale
+    - Revenue generated from DID-based products
+    - Number of users and organizations
+    - Deployment model (on-premise, cloud, SaaS)
+    - Duration of license (annual, perpetual, etc.)
+    - Support and customization requirements
+
+================================================================================
+VI. WARRANTY DISCLAIMERS AND LIMITATION OF LIABILITY
+================================================================================
+
+6.1 WARRANTY DISCLAIMER
+
+    THE DID SKILL PACKAGE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED. PT. AGRA KARYA DIGITAL MAKES NO REPRESENTATIONS OR
+    WARRANTIES REGARDING:
+
+    - Fitness for a particular purpose
+    - Merchantability or quality
+    - Non-infringement of third-party rights
+    - Absence of defects or errors
+    - Performance or reliability
+    - Completeness or accuracy of documentation
+    - Suitability for any specific use case
+    - Compatibility with other systems
+
+6.2 LIMITATION OF LIABILITY
+
+    IN NO EVENT SHALL PT. AGRA KARYA DIGITAL BE LIABLE FOR:
+
+    - Direct or indirect damages
+    - Consequential, incidental, or special damages
+    - Lost profits or business interruption
+    - Loss of data or information
+    - Cost of substitute goods or services
+    - Third-party claims
+    - Any damages exceeding the amount paid for the license
+
+    This limitation applies even if PT. Agra Karya Digital has been advised
+    of the possibility of such damages.
+
+6.3 USER RESPONSIBILITY
+
+    Licensee assumes all responsibility for:
+    - Proper use and implementation of DID
+    - Testing and validation before production use
+    - Backup and protection of data
+    - Compliance with applicable laws and regulations
+    - Third-party licensing and rights
+    - Security and access control
+
+================================================================================
+VII. TERMINATION AND REVOCATION
+================================================================================
+
+7.1 TERMINATION CONDITIONS
+
+    PT. Agra Karya Digital may terminate this license immediately if:
+
+    a) Licensee violates any provision of this agreement
+    b) Licensee engages in plagiarism or copyright infringement
+    c) Licensee misrepresents the origin of DID materials
+    d) Licensee uses DID commercially without authorization
+    e) Licensee breaches confidentiality obligations
+    f) Licensee violates trademark or intellectual property rights
+    g) PT. Agra Karya Digital determines violation through legal proceedings
+
+7.2 IMMEDIATE REVOCATION
+
+    Upon termination, Licensee must immediately:
+    - Cease all use of the DID skill package
+    - Remove all copies from systems and storage
+    - Delete derivative works
+    - Cease distribution of any DID materials
+    - Return or destroy all documentation
+    - Confirm compliance in writing
+
+7.3 SURVIVAL OF PROVISIONS
+
+    The following provisions survive termination:
+    - Copyright and intellectual property rights
+    - Limitation of liability and warranty disclaimers
+    - Indemnification obligations
+    - Confidentiality requirements
+    - Payment obligations for past use
+
+================================================================================
+VIII. INDEMNIFICATION
+================================================================================
+
+8.1 INDEMNIFICATION OBLIGATION
+
+    Licensee agrees to indemnify, defend, and hold harmless
+    PT. Agra Karya Digital from and against:
+
+    - Any third-party claims or actions
+    - Damages, settlements, and legal fees
+    - Violations of applicable law
+    - Infringement claims resulting from Licensee's use
+    - Breach of this agreement
+    - Plagiarism or misappropriation claims
+    - Trademark or intellectual property violations
+
+8.2 DEFENSE RESPONSIBILITY
+
+    Licensee shall take full responsibility for:
+    - Defense of any legal claims
+    - Payment of all legal costs and damages
+    - Settlement negotiations
+    - Compliance with court orders
+    - Provision of legal representation
+
+================================================================================
+IX. CONFIDENTIALITY AND TRADE SECRETS
+================================================================================
+
+9.1 CONFIDENTIAL INFORMATION
+
+    Licensee acknowledges that DID contains valuable trade secrets including:
+    - Proprietary algorithms and methodologies
+    - Design patterns and architectural approaches
+    - Implementation techniques and optimizations
+    - Business and technical strategies
+    - Proprietary data structures and processes
+
+9.2 CONFIDENTIALITY OBLIGATIONS
+
+    Licensee shall:
+    - Maintain confidentiality of all trade secrets
+    - Limit access to authorized personnel only
+    - Implement reasonable security measures
+    - Not disclose or publish proprietary information
+    - Not use trade secrets to compete with PT. Agra Karya Digital
+    - Return or destroy all confidential information upon termination
+
+9.3 THIRD-PARTY DISCLOSURE PROHIBITION
+
+    Licensee shall NOT:
+    - Share DID with unauthorized third parties
+    - Publish proprietary information
+    - Disclose implementation details
+    - Reverse engineer or extract trade secrets
+    - Create competing products based on trade secrets
+
+================================================================================
+X. COMPLIANCE AND ENFORCEMENT
+================================================================================
+
+10.1 GOVERNING LAW
+
+     This Agreement is governed by the laws of Indonesia, specifically:
+     - Indonesian Copyright Law (Law No. 28 of 2014)
+     - Indonesian Trade Mark Law
+     - Indonesian Criminal Code regarding intellectual property
+     - International copyright treaties and conventions
+
+     Venue for any legal proceedings shall be in Indonesian courts,
+     specifically courts located in the jurisdiction where
+     PT. Agra Karya Digital is registered.
+
+10.2 LEGAL ENFORCEMENT
+
+     PT. Agra Karya Digital may pursue all available legal remedies for
+     violations, including:
+     - Civil lawsuits for damages
+     - Injunctive relief and cease-and-desist orders
+     - Criminal prosecution where applicable
+     - Public reporting of violations
+     - Removal from authorized user registry
+
+10.3 DISPUTE RESOLUTION
+
+     a) Informal Resolution
+        - PT. Agra Karya Digital may issue a cease-and-desist notice
+        - Licensee has 30 days to cure violations
+        - Good faith negotiation is encouraged
+
+     b) Formal Legal Proceedings
+        - If disputes cannot be resolved informally, legal action may proceed
+        - Jurisdiction: Indonesian courts
+        - Governing law: Indonesian law
+        - Licensee agrees to submit to jurisdiction
+
+10.4 ATTORNEY'S FEES
+
+     If legal proceedings result in a judgment for PT. Agra Karya Digital,
+     Licensee shall pay all attorney's fees, court costs, and related expenses.
+
+================================================================================
+XI. SPECIAL PROVISIONS FOR PT. AGRA KARYA DIGITAL
+================================================================================
+
+11.1 COMPANY BACKGROUND
+
+     PT. Agra Karya Digital (also known as VeryCoolApps) is an Indonesian
+     technology company committed to creating high-quality design systems,
+     software solutions, and digital products.
+
+     Company Details:
+     - Official Website: www.vcadeveloper.com
+     - GitHub Organization: github.com/verycoolapps
+     - Email: info@vcadeveloper.com
+     - Headquarters: Indonesia
+
+11.2 BRAND PROTECTION
+
+     PT. Agra Karya Digital is committed to maintaining the integrity and
+     reputation of the DID brand. This license protects that commitment by:
+     - Preventing plagiarism and misrepresentation
+     - Maintaining consistent quality standards
+     - Ensuring proper attribution and credit
+     - Protecting against unauthorized commercial use
+     - Preserving the brand's reputation and market position
+
+11.3 COMMUNITY AND PARTNERSHIP
+
+     PT. Agra Karya Digital welcomes:
+     - Collaborations and partnerships
+     - Community contributions and feedback
+     - Integration with other projects (with permission)
+     - Educational use and training programs
+     - Open dialogue about licensing and use cases
+
+     For partnership inquiries: partnerships@vcadeveloper.com
+
+================================================================================
+XII. MISCELLANEOUS PROVISIONS
+================================================================================
+
+12.1 ENTIRE AGREEMENT
+
+     This Agreement constitutes the entire agreement between the parties
+     regarding the DID skill package. All prior agreements, understandings,
+     and negotiations are superseded by this document.
+
+12.2 MODIFICATION AND AMENDMENTS
+
+     This Agreement may be modified at any time by PT. Agra Karya Digital.
+     Continued use of DID constitutes acceptance of modifications.
+
+     Notice of modifications will be posted at www.vcadeveloper.com/license
+
+12.3 SEVERABILITY
+
+     If any provision of this Agreement is found to be unenforceable,
+     that provision shall be modified to the minimum extent necessary
+     to make it enforceable. All other provisions remain in full effect.
+
+12.4 WAIVER
+
+     Failure by PT. Agra Karya Digital to enforce any provision does not
+     constitute a waiver of that provision or any other provision.
+
+12.5 ASSIGNMENT
+
+     Licensee may not assign this license or any rights hereunder without
+     written permission from PT. Agra Karya Digital. Any unauthorized
+     assignment is void.
+
+12.6 NO THIRD-PARTY BENEFICIARIES
+
+     This Agreement is for the benefit of PT. Agra Karya Digital and
+     Licensee only. No third party has any rights or remedies.
+
+12.7 NOTICES
+
+     All notices under this Agreement must be in writing and may be sent to:
+
+     PT. Agra Karya Digital
+     Email: legal@vcadeveloper.com
+     Website: www.vcadeveloper.com
+     GitHub: github.com/verycoolapps
+
+================================================================================
+XIII. ACCEPTANCE AND ACKNOWLEDGMENT
+================================================================================
+
+13.1 ACCEPTANCE OF TERMS
+
+     By using, downloading, or accessing the DID skill package, Licensee
+     acknowledges and agrees to be bound by all terms and conditions of
+     this Agreement.
+
+     If Licensee does not agree to these terms, Licensee shall not use,
+     download, or access the DID skill package.
+
+13.2 AUTHORIZED REPRESENTATION
+
+     If Licensee represents an organization, the person accepting this
+     Agreement represents that they have full authority to bind the
+     organization to these terms.
+
+13.3 LEGAL ACKNOWLEDGMENT
+
+     Licensee acknowledges that:
+     - They have read and understood this Agreement
+     - They understand the restrictions and limitations
+     - They understand the copyright and trademark protections
+     - They agree to comply with all terms
+     - They understand the consequences of violations
+
+================================================================================
+XIV. CONTACT AND SUPPORT
+================================================================================
+
+14.1 LICENSING INQUIRIES
+
+     For commercial licenses, partnerships, or licensing exceptions:
+     Email: licensing@vcadeveloper.com
+     Website: www.vcadeveloper.com/licensing
+
+14.2 LEGAL MATTERS
+
+     For legal questions or compliance verification:
+     Email: legal@vcadeveloper.com
+     Address: PT. Agra Karya Digital, Indonesia
+
+14.3 TECHNICAL SUPPORT
+
+     For technical support and documentation:
+     Email: support@vcadeveloper.com
+     Documentation: https://docs.vcadeveloper.com/did-skill
+     GitHub Issues: https://github.com/verycoolapps/did-skill/issues
+
+================================================================================
+XV. DEFINITIONS
+================================================================================
+
+"DID" or "Skill Package" - The Design Instructions Document skill package,
+including all source code, documentation, templates, and related materials.
+
+"Licensor" - PT. Agra Karya Digital, the copyright holder and creator of DID.
+
+"Licensee" - Any individual or organization using or accessing DID under
+this Agreement.
+
+"Internal Use" - Use within a single organization for non-commercial purposes.
+
+"Commercial Use" - Any use in connection with business activities, services,
+products, or revenue-generating activities.
+
+"Derivative Work" - Any modification, adaptation, or creation based on DID,
+including customizations and enhancements.
+
+"Trade Secrets" - Proprietary information and methodologies unique to DID.
+
+"Plagiarism" - Presenting DID or components as your own original work.
+
+================================================================================
+
+AGREEMENT VERSION: 1.0
+EFFECTIVE DATE: November 17, 2026
+LAST UPDATED: November 17, 2026
+
+This License Agreement is effective immediately upon acceptance by Licensee
+and continues indefinitely unless terminated by PT. Agra Karya Digital.
+
+================================================================================
+
+© 2024-2026 PT. Agra Karya Digital. All Rights Reserved.
+
+For the most current version of this license, visit:
+https://www.vcadeveloper.com/license
+
+================================================================================
