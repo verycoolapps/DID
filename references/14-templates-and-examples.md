@@ -1355,7 +1355,7 @@ Use these templates to establish consistency while adapting content to your spec
 
 ## Indonesian DED Master Template
 
-**Detail Engineering Design (DED)** — dokumen perencanaan pembangunan versi Indonesia, mengikuti konvensi konsultan perencana (acuan: DED Landmark Kampus III UIN Walisongo Semarang, 2022). Template ini adalah route terpisah dari DID produk/desain di atas: isinya **gambar kerja**, bukan sistem desain UI.
+**Detail Engineering Design (DED)** — dokumen perencanaan pembangunan versi Indonesia, mengikuti konvensi konsultan perencana Indonesia. Template ini adalah route terpisah dari DID produk/desain di atas: isinya **gambar kerja**, bukan sistem desain UI.
 
 ### Karakteristik kunci
 - **Drawing-centric, bukan prose-centric** — satu halaman per gambar (sheet), dengan title block dan register kode di setiap lembar.
@@ -1434,9 +1434,9 @@ Formatters terkait di `utils/design_formatter.py`:
 
 ```
 [LOGO INSTANSI]
-KEGIATAN:    Prasarana PTKIN
-PEKERJAAN:   Perencanaan Pembangunan Landmark Kampus III
-LOKASI:      Kampus 3 Universitas Islam Negeri
+KEGIATAN:    Pembangunan Infrastruktur
+PEKERJAAN:   Pembangunan Gedung Perpustakaan Daerah
+LOKASI:      Kecamatan Contoh, Kabupaten Contoh
 TAHUN:       Tahun 2026
 
 MENGETAHUI,
@@ -1472,31 +1472,31 @@ from utils.docx_generator import DIDDocumentGenerator
 from utils.design_formatter import FormatterFactory
 
 fmt = FormatterFactory.get_formatter("ded")          # atau "construction"/"structural"/"mep"/"landscape"
-gen = DIDDocumentGenerator(title="DED Landmark", author="Konsultan", config={
+gen = DIDDocumentGenerator(title="DED Pembangunan Gedung", author="Konsultan", config={
     "primary_color": fmt.primary_color,
     "accent_color": fmt.accent_color,
 })
 
 gen.add_ded_cover(
     main_title="DETAIL ENGINEERING DESIGN (DED)",
-    subtitle="PEKERJAAN PERENCANAAN PEMBANGUNAN LANDMARK",
-    kegiatan="Prasarana PTKIN",
-    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-    lokasi="Kampus 3 Universitas Islam Negeri",
+    subtitle="PEKERJAAN PEMBANGUNAN GEDUNG",
+    kegiatan="Pembangunan Infrastruktur",
+    pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+    lokasi="Kecamatan Contoh, Kabupaten Contoh",
     tahun="Tahun 2026",
-    instansi="UNIVERSITAS ISLAM NEGERI (UIN) CONTOH",
+    instansi="DINAS PEKERJAAN UMUM KABUPATEN CONTOH",
 )
 
 gen.set_ded_project(
-    kegiatan="Prasarana PTKIN",
-    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-    lokasi="Kampus 3 Universitas Islam Negeri",
+    kegiatan="Pembangunan Infrastruktur",
+    pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+    lokasi="Kecamatan Contoh, Kabupaten Contoh",
     tahun="Tahun 2026",
-    mengetahui="Drs. H. TEGUH SARWONO, M.Si",
-    nip_mengetahui="196512141985031001",
+    mengetahui="Drs. H. NAMA PEJABAT, M.Si",
+    nip_mengetahui="197001011990011001",
     konsultan="PT. KONSULTAN PERENCANA",
-    tenaga_ahli=[("Arsitektur", "Timbul Hadiwidayat, ST, IAI"),
-                ("Struktur", "Sabdho Tri Manggolo, ST")],
+    tenaga_ahli=[("Arsitektur", "Nama Ahli Arsitektur, ST, IAI"),
+                ("Struktur", "Nama Ahli Struktur, ST")],
 )
 
 gen.add_daftar_gambar([

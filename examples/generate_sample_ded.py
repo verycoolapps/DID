@@ -2,15 +2,15 @@
 """
 Sample DED (Detail Engineering Design) Document Generator — Indonesian consultant convention.
 
-Generates a complete, small DED .docx package following the layout observed
-in the UIN Walisongo DED reference (ppid.walisongo.ac.id). No real images are
-required — drawing sheets render a shaded placeholder when no image is given.
+Generates a complete, small DED .docx package following standard Indonesian
+consultant layout conventions. No real images are required — drawing sheets
+render a shaded placeholder when no image is given.
 
 Run:
     python examples/generate_sample_ded.py
 
 Output:
-    output/sample_ded_landmark.docx
+    output/sample_ded.docx
 """
 
 import sys
@@ -38,7 +38,7 @@ def generate_sample_ded():
     palette = config["palette"]
 
     generator = DIDDocumentGenerator(
-        title="DED - Perencanaan Pembangunan Landmark Kampus III",
+        title="DED - Pembangunan Gedung Perpustakaan",
         author="Konsultan Perencana",
         config={
             "primary_color": palette["primary"],
@@ -51,27 +51,27 @@ def generate_sample_ded():
     # ------------------------------------------------------------------
     generator.add_ded_cover(
         main_title="DETAIL ENGINEERING DESIGN (DED)",
-        subtitle="PEKERJAAN PERENCANAAN PEMBANGUNAN LANDMARK",
-        kegiatan="Prasarana PTKIN",
-        pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-        lokasi="Kampus 3 Universitas Islam Negeri",
+        subtitle="PEKERJAAN PEMBANGUNAN GEDUNG PERPUSTAKAAN",
+        kegiatan="Pembangunan Infrastruktur",
+        pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+        lokasi="Kecamatan Contoh, Kabupaten Contoh",
         tahun="Tahun 2026",
-        instansi="UNIVERSITAS ISLAM NEGERI (UIN) CONTOH",
+        instansi="DINAS PEKERJAAN UMUM KABUPATEN CONTOH",
         logo_placeholder=True,
     )
 
     # Set project metadata once — reused by every drawing sheet
     generator.set_ded_project(
-        kegiatan="Prasarana PTKIN",
-        pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-        lokasi="Kampus 3 Universitas Islam Negeri",
+        kegiatan="Pembangunan Infrastruktur",
+        pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+        lokasi="Kecamatan Contoh, Kabupaten Contoh",
         tahun="Tahun 2026",
-        mengetahui="Drs. H. TEGUH SARWONO, M.Si",
-        nip_mengetahui="196512141985031001",
+        mengetahui="Drs. H. NAMA PEJABAT, M.Si",
+        nip_mengetahui="197001011990011001",
         konsultan="PT. KONSULTAN PERENCANA",
         tenaga_ahli=[
-            ("Arsitektur", "Timbul Hadiwidayat, ST, IAI"),
-            ("Struktur", "Sabdho Tri Manggolo, ST"),
+            ("Arsitektur", "Nama Ahli Arsitektur, ST, IAI"),
+            ("Struktur", "Nama Ahli Struktur, ST"),
         ],
     )
 
@@ -90,10 +90,10 @@ def generate_sample_ded():
         {"no": 8, "kode": "00.08", "judul": "POTONGAN 01", "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
         {"no": 9, "kode": "00.09", "judul": "DENAH RENCANA HARD & SOFT MATERIAL", "skala": "1:150", "jumlah": 1, "disiplin": "LAND"},
         {"no": 10, "kode": "00.10", "judul": "DENAH RENCANA VEGETASI", "skala": "1:150", "jumlah": 1, "disiplin": "LAND"},
-        {"no": 11, "kode": "01.01", "judul": "DENAH SETTING GROUP", "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
-        {"no": 12, "kode": "01.02", "judul": "TAMPAK & DETAIL SETTING GROUP", "skala": "1:50", "jumlah": 1, "disiplin": "ARS"},
-        {"no": 13, "kode": "01.03", "judul": "DETAIL SCULPTURE LOGO UIN", "skala": "1:20", "jumlah": 1, "disiplin": "ARS"},
-        {"no": 14, "kode": "01.04", "judul": "DETAIL KINCIR ANGIN SCULPTURE", "skala": "1:20", "jumlah": 1, "disiplin": "ARS"},
+        {"no": 11, "kode": "01.01", "judul": "DENAH LOBI UTAMA", "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
+        {"no": 12, "kode": "01.02", "judul": "TAMPAK & DETAIL LOBI UTAMA", "skala": "1:50", "jumlah": 1, "disiplin": "ARS"},
+        {"no": 13, "kode": "01.03", "judul": "DETAIL PATUNG MONUMEN", "skala": "1:20", "jumlah": 1, "disiplin": "ARS"},
+        {"no": 14, "kode": "01.04", "judul": "DETAIL AIR MANIK-MANIK PATUNG", "skala": "1:20", "jumlah": 1, "disiplin": "ARS"},
         {"no": 15, "kode": "01.05", "judul": "DETAIL PENDESTRIAN & PLAFON", "skala": "1:100", "jumlah": 1, "disiplin": "ARS"},
         {"no": 16, "kode": "01.06", "judul": "PERSPEKTIF 3D 1 - 5", "skala": "NTS", "jumlah": 5, "disiplin": "ARS"},
         {"no": 17, "kode": "02.01", "judul": "DENAH KOLOM", "skala": "1:150", "jumlah": 1, "disiplin": "STR"},
@@ -142,7 +142,7 @@ def generate_sample_ded():
     # ------------------------------------------------------------------
     generator.add_heading("DENAH RENCANA HARD & SOFT MATERIAL", level=1)
     generator.add_ded_drawing_sheet(
-        judul_gambar="DENAH RENCANA HARD & SOFT MATERIAL LANDMARK",
+        judul_gambar="DENAH RENCANA HARD & SOFT MATERIAL",
         skala="1:150",
         kode="00.09",
         no_gambar="9",
@@ -154,7 +154,7 @@ def generate_sample_ded():
     generator.add_ded_legend([
         ("FIN.CAT DINDING EXTERIOR WARNA PUTIH", "Cat dinding eksterior warna putih matte"),
         ("BATU TEMPEL BANJAR + FIN. STONE COAT", "Finishing batu tempel banjar dengan stone coat"),
-        ("ORNAMEN GRC ISLAMI FIN.CAT EXTERIOR WARNA PUTIH", "Ornamen GRC motif Islami finishing cat putih"),
+        ("ORNAMEN GRC MOTIF LOKAL FIN.CAT EXTERIOR WARNA PUTIH", "Ornamen GRC motif lokal finishing cat putih"),
         ("PAS.BATA MERAH FIN.PLESTER ACI", "Pasangan bata merah finishing plester acian"),
         ("PLAT BETON T=10CM + FIN. BATU TEMPEL BANJAR & FIN.STONE COAT", "Plat beton setebal 10 cm finishing batu tempel banjar"),
     ])
@@ -162,7 +162,7 @@ def generate_sample_ded():
     generator.add_page_break()
     generator.add_heading("DENAH RENCANA VEGETASI", level=1)
     generator.add_ded_drawing_sheet(
-        judul_gambar="DENAH RENCANA VEGETASI LANDMARK",
+        judul_gambar="DENAH RENCANA VEGETASI",
         skala="1:150",
         kode="00.10",
         no_gambar="10",
@@ -182,27 +182,27 @@ def generate_sample_ded():
     generator.add_page_break()
 
     # ------------------------------------------------------------------
-    # 5. Per-zone architecture — Setting Group example
+    # 5. Per-zone architecture — Lobi example
     # ------------------------------------------------------------------
-    generator.add_heading("DETAIL SETTING GROUP", level=1)
+    generator.add_heading("DETAIL LOBI UTAMA", level=1)
     generator.add_paragraph(
-        "Zona Setting Group mencakup elemen monumen/logo UIN, sculpture, "
+        "Zona Lobi Utama mencakup elemen monumen patung, sculpture, "
         "dan elemen pendukung. Denah, tampak, dan detail disajikan pada skala "
         "1:150 (denah), 1:50 (tampak/detail), dan 1:20 (detail elemen)."
     )
 
     generator.add_ded_drawing_sheet(
-        judul_gambar="DENAH RENCANA SETTING GROUP",
+        judul_gambar="DENAH RENCANA LOBI UTAMA",
         skala="1:150",
         kode="01.01",
         no_gambar="11",
         jumlah_gambar=28,
         disiplin="ARS",
-        caption="Denah zona setting group dengan keterangan elevasi",
+        caption="Denah zona lobi utama dengan keterangan elevasi",
     )
 
     generator.add_ded_drawing_sheet(
-        judul_gambar="TAMPAK DEPAN & SAMPING SETTING GROUP",
+        judul_gambar="TAMPAK DEPAN & SAMPING LOBI UTAMA",
         skala="1:50",
         kode="01.02",
         no_gambar="12",
@@ -218,22 +218,22 @@ def generate_sample_ded():
     ])
 
     generator.add_ded_drawing_sheet(
-        judul_gambar="DETAIL SCULPTURE LOGO UIN DEPAN & BELAKANG",
+        judul_gambar="DETAIL PATUNG MONUMEN DEPAN & BELAKANG",
         skala="1:20",
         kode="01.03",
         no_gambar="13",
         jumlah_gambar=28,
         disiplin="ARS",
-        caption="Detail sculpture logo UIN dengan material GRC",
+        caption="Detail patung monumen dengan material GRC",
     )
     generator.add_ded_legend([
         ("GRC BATU ANDESIT 20X40", "GRC dengan motif batu andesit ukuran 20×40 cm"),
-        ("ORNAMEN GRC MOTIF ISLAMI", "Ornamen GRC dengan motif Islami"),
+        ("ORNAMEN GRC MOTIF LOKAL", "Ornamen GRC dengan motif lokal"),
         ("LATER NAME WARNA TEMBAGA", "Later name/latar nama warna tembaga"),
     ])
 
     generator.add_ded_drawing_sheet(
-        judul_gambar="DETAIL KINCIR ANGIN SCULPTURE LOGO UIN",
+        judul_gambar="DETAIL AIR MANIK-MANIK PATUNG",
         skala="1:20",
         kode="01.04",
         no_gambar="14",
@@ -367,10 +367,10 @@ def generate_sample_ded():
     # Footer + save
     # ------------------------------------------------------------------
     generator.add_footer_with_page_numbers(
-        text="DED - Perencanaan Pembangunan Landmark Kampus III"
+        text="DED - Pembangunan Gedung Perpustakaan Daerah"
     )
 
-    output_path = generator.save("output/sample_ded_landmark.docx")
+    output_path = generator.save("output/sample_ded.docx")
     print(f"\nDED document generated: {output_path}")
     print(f"Sections: {generator.get_summary()['section_count']}")
     print(f"Tables: {generator.get_summary()['table_count']}")

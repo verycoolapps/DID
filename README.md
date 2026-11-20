@@ -1,6 +1,6 @@
 # DID — Design Instructions & Detail Engineering Design (DED) Document Engine
 
-**DID** adalah skill + Python engine untuk menghasilkan dokumen desain teknis profesional dalam format **Microsoft Word (.docx)**. Kini diperluas dengan kemampuan **DED (Detail Engineering Design)** mengikuti konvensi konsultan perencana Indonesia — acuan implementasi: DED Landmark Kampus III UIN Walisongo Semarang (2022).
+**DID** adalah skill + Python engine untuk menghasilkan dokumen desain teknis profesional dalam format **Microsoft Word (.docx)**. Kini diperluas dengan kemampuan **DED (Detail Engineering Design)** mengikuti konvensi konsultan perencana Indonesia.
 
 > **Dua mode dalam satu engine:**
 > - **DID (produk/desain)** — design system, komponen, guideline UI/UX, arsitektur, interior, 3D, grafis
@@ -58,31 +58,31 @@ from utils.design_formatter import FormatterFactory
 
 fmt = FormatterFactory.get_formatter("ded")
 gen = DIDDocumentGenerator(
-    title="DED - Perencanaan Landmark",
+    title="DED - Pembangunan Gedung",
     author="Konsultan Perencana",
     config={"primary_color": fmt.primary_color, "accent_color": fmt.accent_color},
 )
 
 gen.add_ded_cover(
     main_title="DETAIL ENGINEERING DESIGN (DED)",
-    subtitle="PEKERJAAN PERENCANAAN PEMBANGUNAN LANDMARK",
-    kegiatan="Prasarana PTKIN",
-    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-    lokasi="Kampus 3 Universitas Islam Negeri",
+    subtitle="PEKERJAAN PEMBANGUNAN GEDUNG",
+    kegiatan="Pembangunan Infrastruktur",
+    pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+    lokasi="Kecamatan Contoh, Kabupaten Contoh",
     tahun="Tahun 2026",
-    instansi="UNIVERSITAS ISLAM NEGERI (UIN) CONTOH",
+    instansi="DINAS PEKERJAAN UMUM KABUPATEN CONTOH",
 )
 
 gen.set_ded_project(
-    kegiatan="Prasarana PTKIN",
-    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
-    lokasi="Kampus 3 Universitas Islam Negeri",
+    kegiatan="Pembangunan Infrastruktur",
+    pekerjaan="Pembangunan Gedung Perpustakaan Daerah",
+    lokasi="Kecamatan Contoh, Kabupaten Contoh",
     tahun="Tahun 2026",
-    mengetahui="Drs. H. TEGUH SARWONO, M.Si",
-    nip_mengetahui="196512141985031001",
+    mengetahui="Drs. H. NAMA PEJABAT, M.Si",
+    nip_mengetahui="197001011990011001",
     konsultan="PT. KONSULTAN PERENCANA",
-    tenaga_ahli=[("Arsitektur", "Timbul Hadiwidayat, ST, IAI"),
-                ("Struktur", "Sabdho Tri Manggolo, ST")],
+    tenaga_ahli=[("Arsitektur", "Nama Ahli Arsitektur, ST, IAI"),
+                ("Struktur", "Nama Ahli Struktur, ST")],
 )
 
 gen.add_daftar_gambar([
@@ -101,7 +101,7 @@ gen.add_ded_drawing_sheet(
 )
 
 gen.add_ded_legend([("FIN.CAT DINDING PUTIH", "Cat putih matte")])
-gen.add_footer_with_page_numbers("DED - Perencanaan Landmark")
+gen.add_footer_with_page_numbers("DED - Pembangunan Gedung")
 gen.save("output/ded.docx")
 ```
 
@@ -113,7 +113,7 @@ python examples/generate_sample_did.py
 
 # DED — contoh Detail Engineering Design Indonesia
 python examples/generate_sample_ded.py
-# → output/sample_ded_landmark.docx  (28 sheet, ~45 KB)
+# → output/sample_ded.docx  (28 sheet, ~45 KB)
 ```
 
 ## Struktur Proyek

@@ -30,10 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Documentation
 - `references/14-templates-and-examples.md` — new section **"Indonesian DED Master Template"** with full chapter structure, SNI scales, register/title-block/legend examples, and copy-paste Python usage
 - `README.md` rewritten to present DID + DED dual capability
-- `examples/generate_sample_ded.py` — runnable end-to-end DED sample producing `output/sample_ded_landmark.docx`
+- `examples/generate_sample_ded.py` — runnable end-to-end DED sample producing `output/sample_ded.docx`
 
 #### Reference
-- Indonesian DED convention modeled on UIN Walisongo Landmark Kampus III DED (2022)
+- Indonesian DED convention (generic consultant layout)
 
 ---
 

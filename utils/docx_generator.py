@@ -731,19 +731,19 @@ class DIDDocumentGenerator:
         """
         Add an Indonesian DED title block (per-sheet footer/header block).
 
-        Layout (mirroring UIN Walisongo DED reference):
+        Layout follows standard Indonesian consultant DED convention:
         - Left cell: logo placeholder + kegiatan/pekerjaan/lokasi metadata
         - Right cell: Mengetahui (PA) + Konsultan Perencana + Tenaga Ahli + Paraf
 
         Args:
-            kegiatan: e.g. "Prasarana PTKIN"
-            pekerjaan: e.g. "Perencanaan Pembangunan Landmark ..."
-            lokasi: e.g. "Kampus 3 Universitas Islam Negeri"
-            tahun: e.g. "Tahun 2022"
+            kegiatan: e.g. "Pembangunan Infrastruktur"
+            pekerjaan: e.g. "Pembangunan Gedung ..."
+            lokasi: e.g. "Kecamatan ..."
+            tahun: e.g. "Tahun 2026"
             mengetahui: Name of Pejabat Penandatangan (optional)
             nip_mengetahui: NIP of signatory (optional)
             konsultan: Consultant name (optional)
-            tenaga_ahli: List of (discipline, name) tuples, e.g. [("Arsitektur","Timbul Hadiwidayat,ST,IAI")]
+            tenaga_ahli: List of (discipline, name) tuples, e.g. [("Arsitektur","Nama Ahli, ST")]
             logo_placeholder: If True, render a shaded "LOGO" cell; if False skip
         """
         tenaga_ahli = tenaga_ahli or []
