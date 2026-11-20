@@ -1350,3 +1350,191 @@ Each example shows:
 - Real-world applicable standards that could be published as-is
 
 Use these templates to establish consistency while adapting content to your specific context, discipline, and organizational needs.
+
+---
+
+## Indonesian DED Master Template
+
+**Detail Engineering Design (DED)** — dokumen perencanaan pembangunan versi Indonesia, mengikuti konvensi konsultan perencana (acuan: DED Landmark Kampus III UIN Walisongo Semarang, 2022). Template ini adalah route terpisah dari DID produk/desain di atas: isinya **gambar kerja**, bukan sistem desain UI.
+
+### Karakteristik kunci
+- **Drawing-centric, bukan prose-centric** — satu halaman per gambar (sheet), dengan title block dan register kode di setiap lembar.
+- **Disiplin berkode:** `00.xx` Site/Arsitektur, `01.xx` Detail Arsitektur, `02.xx` Struktur, `MEP-01.xx` MEP, `LAND-xx` Landscape.
+- **Skala SNI:** `1:150` (siteplan/master plan), `1:100` (denah/detail), `1:50` (tampak/detail), `1:20`–`1:25` (detail elemen & penulangan), `NTS` (perspektif).
+- **Setiap sheet membawa title block yang sama**: logo instansi, kegiatan, pekerjaan, lokasi, blok "Mengetahui" (Pejabat Penandatangan + NIP), "Konsultan Perencana", daftar Tenaga Ahli per disiplin, kolom Paraf, dan tabel `KODE | NO.GMR | JML.GMR | DISIPLIN`.
+- **Legend notasi** tertanam di sheet (tabel `NOTASI | KETERANGAN`) — material callout inline, bukan dokumen terpisah.
+
+### Primitives di `utils/docx_generator.py`
+| Method | Fungsi |
+|---|---|
+| `add_ded_cover(...)` | Cover halaman DED ala instansi Indonesia |
+| `set_ded_project(...)` | Set metadata proyek (kegiatan/pekerjaan/lokasi/tahun + signatories) — dipakai ulang di setiap sheet |
+| `add_daftar_gambar(rows)` | Daftar Gambar register: NO \| KODE \| JUDUL GAMBAR \| SKALA \| JML \| DISIPLIN |
+| `add_ded_drawing_sheet(judul, skala, kode, no_gambar, jumlah, disiplin, image_path=None)` | Satu halaman gambar: image + caption + title block + register footer; page break di akhir |
+| `add_ded_title_block(...)` | Title block standalone (logo + metadata + Mengetahui + Tenaga Ahli + Paraf) |
+| `add_ded_legend([(notasi, keterangan)])` | Tabel `NOTASI | KETERANGAN` |
+| `add_ded_material_table(headers, rows, title)` | Tabel material/spesifikasi/RAB |
+
+Formatters terkait di `utils/design_formatter.py`:
+- `ded` / `detail-engineering-design` → `DEDFormatter` (alias `ConstructionFormatter`)
+- `construction` / `arsitektur` → `ConstructionFormatter` (disiplin ARS)
+- `structural` / `struktur` → `StructuralFormatter` (STR)
+- `mep` → `MEPFormatter` (MEP)
+- `landscape` / `landscaping` → `LandscapeFormatter` (LAND)
+
+### Struktur bab DED Indonesia
+
+```
+0. Identitas Dokumen (cover)
+1. Daftar Gambar
+2. Site Plan dan Master Plan
+   - SITEPLAN 1:150
+   - SITUASI 1:150
+   - DENAH RENCANA 1:150
+   - TAMPAK DEPAN / BELAKANG 1:150
+   - TAMPAK KANAN / KIRI 1:100
+   - POTONGAN 01, 02 1:150
+3. Hard & Soft Material + Vegetasi (Landscape)
+   - DENAH RENCANA HARD & SOFT MATERIAL 1:150 + Indeks
+   - DENAH RENCANA VEGETASI 1:150 + Indeks + Spesifikasi Tanaman
+4. Arsitektur per Zona (untuk setiap zone/fitur bernama)
+   - DENAH RENCANA <ZONE> 1:150
+   - TAMPAK DEPAN / SAMPING <ZONE> 1:50
+   - DETAIL <ZONE> 1:50 / 1:20
+   - Sculpture / elemen khusus: DETAIL ... 1:20
+5. Pedestrian & Plumbing Arsitektur
+   - DENAH & DETAIL ISOMETRI PLAFON PENDESTRIAN 1:100
+   - PERSPEKTIF 3D 1..N (NTS)
+6. Struktur
+   - DENAH KOLOM 1:150 / DETAIL PENULANGAN KOLOM 1:20
+   - DENAH BALOK 1:100 / DETAIL PENULANGAN RING BALK 1:20
+   - DENAH PONDASI ... 1:150 / DETAIL PONDASI 1:20
+   - DENAH SLOOF 1:150 / DETAIL SLOOF 1:20
+7. MEP
+   - DENAH STOP KONTAK 1:150
+   - DENAH ELEKTRIKAL 1..N 1:150 + detail 1:25
+   - (opsional) plumbing, roof drain, single line diagram
+8. RAB / Spesifikasi / Kuesioner
+   - Rekapitulasi RAB per item pekerjaan
+   - Spesifikasi material (SNI)
+   - Berita acara / kuesioner KPJ
+```
+
+### Contoh sheet register
+
+| NO | KODE | JUDUL GAMBAR | SKALA | JML | DISIPLIN |
+|---|---|---|---|---|---|
+| 1 | 00.01 | SITEPLAN | 1:150 | 1 | ARS |
+| 2 | 00.02 | SITUASI | 1:150 | 1 | ARS |
+| 3 | 00.09 | DENAH RENCANA HARD & SOFT MATERIAL | 1:150 | 1 | LAND |
+| 4 | 02.01 | DENAH KOLOM | 1:150 | 1 | STR |
+| 5 | MEP-01.01 | DENAH STOP KONTAK | 1:150 | 1 | MEP |
+
+### Contoh title block fields (per sheet)
+
+```
+[LOGO INSTANSI]
+KEGIATAN:    Prasarana PTKIN
+PEKERJAAN:   Perencanaan Pembangunan Landmark Kampus III
+LOKASI:      Kampus 3 Universitas Islam Negeri
+TAHUN:       Tahun 2026
+
+MENGETAHUI,
+<Nama Pejabat Penandatangan>
+Pejabat Penandatangan
+NIP. <NIP>
+
+KONSULTAN PERENCANA
+┌────────────┬────────────────────────────┐
+│ Disiplin   │ Nama                       │
+├────────────┼────────────────────────────┤
+│ Arsitektur │ <Tenaga Ahli Arsitektur>   │
+│ Struktur   │ <Tenaga Ahli Struktur>     │
+└────────────┴────────────────────────────┘
+
+PARAF:  ______  ______  ______
+```
+
+### Contoh legend notasi (material finish)
+
+| NOTASI | KETERANGAN |
+|---|---|
+| FIN.CAT DINDING EXTERIOR WARNA PUTIH | Cat dinding eksterior putih matte |
+| BATU TEMPEL BANJAR + FIN. STONE COAT | Batu tempel banjar + stone coat |
+| ORNAMEN GRC ISLAMI FIN.CAT EXTERIOR PUTIH | Ornamen GRC motif Islami cat putih |
+| PAS.BATA MERAH FIN.PLESTER ACI | Bata merah + plester acian |
+| PLAT BETON T=10CM + FIN. BATU TEMPEL | Plat beton 10 cm + batu tempel |
+
+### Cara pakai di Python
+
+```python
+from utils.docx_generator import DIDDocumentGenerator
+from utils.design_formatter import FormatterFactory
+
+fmt = FormatterFactory.get_formatter("ded")          # atau "construction"/"structural"/"mep"/"landscape"
+gen = DIDDocumentGenerator(title="DED Landmark", author="Konsultan", config={
+    "primary_color": fmt.primary_color,
+    "accent_color": fmt.accent_color,
+})
+
+gen.add_ded_cover(
+    main_title="DETAIL ENGINEERING DESIGN (DED)",
+    subtitle="PEKERJAAN PERENCANAAN PEMBANGUNAN LANDMARK",
+    kegiatan="Prasarana PTKIN",
+    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
+    lokasi="Kampus 3 Universitas Islam Negeri",
+    tahun="Tahun 2026",
+    instansi="UNIVERSITAS ISLAM NEGERI (UIN) CONTOH",
+)
+
+gen.set_ded_project(
+    kegiatan="Prasarana PTKIN",
+    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
+    lokasi="Kampus 3 Universitas Islam Negeri",
+    tahun="Tahun 2026",
+    mengetahui="Drs. H. TEGUH SARWONO, M.Si",
+    nip_mengetahui="196512141985031001",
+    konsultan="PT. KONSULTAN PERENCANA",
+    tenaga_ahli=[("Arsitektur", "Timbul Hadiwidayat, ST, IAI"),
+                ("Struktur", "Sabdho Tri Manggolo, ST")],
+)
+
+gen.add_daftar_gambar([
+    {"no": 1, "kode": "00.01", "judul": "SITEPLAN", "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
+    {"no": 2, "kode": "02.01", "judul": "DENAH KOLOM", "skala": "1:150", "jumlah": 1, "disiplin": "STR"},
+])
+
+gen.add_ded_drawing_sheet(
+    judul_gambar="DENAH RENCANA",
+    skala="1:150",
+    kode="00.03",
+    no_gambar="3",
+    jumlah_gambar=28,
+    disiplin="ARS",
+    image_path="path/to/denah.png",   # opsional; jika None render placeholder
+)
+
+gen.add_ded_legend([
+    ("FIN.CAT DINDING PUTIH", "Cat putih matte"),
+])
+
+gen.add_ded_material_table(
+    headers=["NO", "URAIAN", "SATUAN", "VOLUME", "HARGA", "JUMLAH"],
+    rows=[["1", "Galian pondasi", "m3", "120", "250000", "30000000"]],
+    title="RAB",
+)
+
+gen.save("output/ded.docx")
+```
+
+### Checklist kualitas DED
+- [ ] Cover menampilkan instansi, kegiatan, pekerjaan, lokasi, tahun
+- [ ] Daftar Gambar lengkap dengan kode, judul, skala, jumlah, disiplin
+- [ ] Setiap sheet punya title block konsisten (logo + metadata + Mengetahui + Tenaga Ahli + Paraf)
+- [ ] Register footer `KODE | NO.GMR | JML.GMR | DISIPLIN` ada di setiap sheet
+- [ ] Skala sesuai konvensi (1:150 site, 1:100 denah, 1:50 tampak/detail, 1:20-1:25 detail & penulangan)
+- [ ] Legend notasi / keterangan material ada pada sheet terkait
+- [ ] Struktur punya denah + detail penulangan untuk kolom, balok, pondasi, sloof
+- [ ] MEP punya denah stop kontak + denah elektrikal (dan plumbing bila relevan)
+- [ ] Landscape punya denah vegetasi + hard/soft material + indeks
+- [ ] RAB / spesifikasi / kuesioner ditambahkan di akhir

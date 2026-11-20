@@ -661,6 +661,490 @@ class DIDDocumentGenerator:
 
         logger.info("Footer with page numbers added")
 
+
+    # ------------------------------------------------------------------
+    # DED (Detail Engineering Design) primitives
+    # Indonesian consultant conventions — see references/14-templates-and-examples.md
+    # ------------------------------------------------------------------
+
+    def add_daftar_gambar(self, rows: List[Dict[str, Any]]) -> None:
+        """
+        Add a Daftar Gambar (drawing register) table.
+
+        Args:
+            rows: List of dicts with keys:
+                no (int), kode (str), judul (str), skala (str),
+                jumlah (int), disiplin (str)
+
+        Example:
+            >>> gen.add_daftar_gambar([
+            ...     {"no": 1, "kode": "00.01", "judul": "SITEPLAN",
+            ...      "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
+            ... ])
+        """
+        headers = ["NO", "KODE", "JUDUL GAMBAR", "SKALA", "JML", "DISIPLIN"]
+        table = self.document.add_table(rows=len(rows) + 1, cols=len(headers))
+        table.style = "Light Grid Accent 1"
+
+        # Header
+        for i, h in enumerate(headers):
+            cell = table.rows[0].cells[i]
+            cell.text = h
+            self._shade_cell(cell, self.config["primary_color"])
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+                    r.font.color.rgb = RGBColor(255, 255, 255)
+
+        # Body
+        for row_idx, item in enumerate(rows, start=1):
+            cells = table.rows[row_idx].cells
+            values = [
+                str(item.get("no", row_idx)),
+                str(item.get("kode", "")),
+                str(item.get("judul", "")),
+                str(item.get("skala", "")),
+                str(item.get("jumlah", 1)),
+                str(item.get("disiplin", "")),
+            ]
+            for col_idx, val in enumerate(values):
+                cells[col_idx].text = val
+                for p in cells[col_idx].paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(9)
+
+        logger.info(f"Daftar Gambar added: {len(rows)} rows")
+
+    def add_ded_title_block(
+        self,
+        kegiatan: str,
+        pekerjaan: str,
+        lokasi: str,
+        tahun: str,
+        mengetahui: Optional[str] = None,
+        nip_mengetahui: Optional[str] = None,
+        konsultan: Optional[str] = None,
+        tenaga_ahli: Optional[List[Tuple[str, str]]] = None,
+        logo_placeholder: bool = True,
+    ) -> None:
+        """
+        Add an Indonesian DED title block (per-sheet footer/header block).
+
+        Layout (mirroring UIN Walisongo DED reference):
+        - Left cell: logo placeholder + kegiatan/pekerjaan/lokasi metadata
+        - Right cell: Mengetahui (PA) + Konsultan Perencana + Tenaga Ahli + Paraf
+
+        Args:
+            kegiatan: e.g. "Prasarana PTKIN"
+            pekerjaan: e.g. "Perencanaan Pembangunan Landmark ..."
+            lokasi: e.g. "Kampus 3 Universitas Islam Negeri"
+            tahun: e.g. "Tahun 2022"
+            mengetahui: Name of Pejabat Penandatangan (optional)
+            nip_mengetahui: NIP of signatory (optional)
+            konsultan: Consultant name (optional)
+            tenaga_ahli: List of (discipline, name) tuples, e.g. [("Arsitektur","Timbul Hadiwidayat,ST,IAI")]
+            logo_placeholder: If True, render a shaded "LOGO" cell; if False skip
+        """
+        tenaga_ahli = tenaga_ahli or []
+
+        # Two-column borderless table
+        table = self.document.add_table(rows=1, cols=2)
+        table.autofit = True
+
+        # Left cell: logo + metadata
+        left = table.rows[0].cells[0]
+        left.width = Inches(3.5)
+
+        if logo_placeholder:
+            logo_para = left.paragraphs[0]
+            logo_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            logo_run = logo_para.add_run("[LOGO INSTANSI]")
+            logo_run.font.bold = True
+            logo_run.font.size = Pt(10)
+            logo_run.font.color.rgb = RGBColor(150, 150, 150)
+            self._apply_shading(logo_para, self.config["light_gray"])
+
+        meta_lines = [
+            ("KEGIATAN", kegiatan),
+            ("PEKERJAAN", pekerjaan),
+            ("LOKASI", lokasi),
+            ("TAHUN", tahun),
+        ]
+        for label, value in meta_lines:
+            p = left.add_paragraph()
+            p.paragraph_format.space_after = Pt(1)
+            r1 = p.add_run(f"{label}: ")
+            r1.font.bold = True
+            r1.font.size = Pt(8)
+            r2 = p.add_run(value)
+            r2.font.size = Pt(8)
+
+        # Right cell: signatories
+        right = table.rows[0].cells[1]
+        right.width = Inches(3.0)
+
+        if mengetahui:
+            p = right.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r = p.add_run("Mengetahui,")
+            r.font.size = Pt(8)
+            r.font.italic = True
+            p2 = right.add_paragraph()
+            p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r2 = p2.add_run(mengetahui)
+            r2.font.bold = True
+            r2.font.size = Pt(8)
+            p3 = right.add_paragraph()
+            p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r3 = p3.add_run("Pejabat Penandatangan")
+            r3.font.size = Pt(8)
+            if nip_mengetahui:
+                p4 = right.add_paragraph()
+                p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                r4 = p4.add_run(f"NIP. {nip_mengetahui}")
+                r4.font.size = Pt(8)
+
+        if konsultan:
+            p = right.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.space_before = Pt(6)
+            r = p.add_run("KONSULTAN PERENCANA")
+            r.font.bold = True
+            r.font.size = Pt(8)
+
+        if tenaga_ahli:
+            # Two-column mini-table for discipline/name
+            ta_table = right.add_table(rows=1, cols=2)
+            ta_table.style = "Table Grid"
+            header = ta_table.rows[0].cells
+            header[0].text = "Disiplin"
+            header[1].text = "Nama"
+            for cell in header:
+                for pr in cell.paragraphs:
+                    for rr in pr.runs:
+                        rr.font.bold = True
+                        rr.font.size = Pt(7)
+
+            # Add one body row per tenaga ahli entry
+            for _ in tenaga_ahli:
+                ta_table.add_row()
+            for row_idx, (disc, name) in enumerate(tenaga_ahli, start=1):
+                row = ta_table.rows[row_idx].cells
+                row[0].text = disc
+                row[1].text = name
+                for cell in row:
+                    for pr in cell.paragraphs:
+                        for rr in pr.runs:
+                            rr.font.size = Pt(7)
+
+        # Paraf column
+        p = right.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(6)
+        r = p.add_run("PARAF")
+        r.font.bold = True
+        r.font.size = Pt(8)
+
+        logger.debug("DED title block added")
+
+    def add_ded_drawing_sheet(
+        self,
+        judul_gambar: str,
+        skala: str,
+        kode: str,
+        no_gambar: str,
+        jumlah_gambar: int = 1,
+        disiplin: str = "",
+        image_path: Optional[str] = None,
+        image_width: float = 6.0,
+        caption: Optional[str] = None,
+    ) -> None:
+        """
+        Add a complete DED drawing sheet (one page per drawing).
+
+        Layout:
+        1. Optional drawing image (centered, large)
+        2. Caption: JUDUL GAMBAR + SKALA
+        3. DED title block (project metadata + signatories)
+        4. Drawing register footer row: KODE | NO.GMR | JML.GMR | DISIPLIN
+
+        Args:
+            judul_gambar: Drawing title, e.g. "DENAH RENCANA"
+            skala: Drawing scale, e.g. "1:150" or "NTS"
+            kode: Drawing code, e.g. "00.04"
+            no_gambar: Drawing number, e.g. "4"
+            jumlah_gambar: Total sheets in set (default 1)
+            disiplin: Discipline code: ARS / STR / MEP / LAND
+            image_path: Optional path to drawing image
+            image_width: Image width in inches
+            caption: Optional extra caption text
+        """
+        # Image
+        if image_path:
+            try:
+                self.add_image(image_path, width=image_width, align="center")
+            except FileNotFoundError:
+                # Graceful fallback: render placeholder box
+                ph = self.document.add_paragraph()
+                ph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                run = ph.add_run(f"[GAMBAR: {judul_gambar}]\n(skala {skala})")
+                run.font.italic = True
+                run.font.size = Pt(12)
+                run.font.color.rgb = RGBColor(150, 150, 150)
+                self._apply_shading(ph, self.config["light_gray"])
+        else:
+            ph = self.document.add_paragraph()
+            ph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run = ph.add_run(f"[GAMBAR: {judul_gambar}]\n(skala {skala})")
+            run.font.italic = True
+            run.font.size = Pt(12)
+            run.font.color.rgb = RGBColor(150, 150, 150)
+            self._apply_shading(ph, self.config["light_gray"])
+
+        # Caption
+        cap = self.document.add_paragraph()
+        cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap.paragraph_format.space_before = Pt(6)
+        cap.paragraph_format.space_after = Pt(6)
+        r = cap.add_run(judul_gambar)
+        r.font.bold = True
+        r.font.size = Pt(12)
+        r2 = cap.add_run(f"   SKALA {skala}")
+        r2.font.size = Pt(10)
+        if caption:
+            p2 = self.document.add_paragraph()
+            p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r3 = p2.add_run(caption)
+            r3.font.italic = True
+            r3.font.size = Pt(9)
+
+        # Title block (caller is expected to set project metadata on self._ded_project)
+        project = getattr(self, "_ded_project", None)
+        if project:
+            self.add_ded_title_block(**project)
+
+        # Register row: KODE | NO.GMR | JML.GMR | DISIPLIN
+        reg = self.document.add_table(rows=1, cols=4)
+        reg.style = "Table Grid"
+        labels = ["KODE", "NO.GMR", "JML.GMR", "DISIPLIN"]
+        values = [kode, no_gambar, str(jumlah_gambar), disiplin]
+        for i, (lbl, val) in enumerate(zip(labels, values)):
+            cell = reg.rows[0].cells[i]
+            cell.text = f"{lbl}\n{val}"
+            cell.width = Inches(1.5)
+            for p in cell.paragraphs:
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                for r in p.runs:
+                    r.font.size = Pt(8)
+                    if lbl == p.text.split("\n")[0]:
+                        r.font.bold = True
+
+        self.document.add_page_break()
+        logger.info(f"DED drawing sheet added: {judul_gambar} ({skala})")
+
+    def set_ded_project(
+        self,
+        kegiatan: str,
+        pekerjaan: str,
+        lokasi: str,
+        tahun: str,
+        mengetahui: Optional[str] = None,
+        nip_mengetahui: Optional[str] = None,
+        konsultan: Optional[str] = None,
+        tenaga_ahli: Optional[List[Tuple[str, str]]] = None,
+    ) -> None:
+        """
+        Set project metadata that will be reused on every subsequent
+        add_ded_drawing_sheet() call.
+        """
+        self._ded_project = {
+            "kegiatan": kegiatan,
+            "pekerjaan": pekerjaan,
+            "lokasi": lokasi,
+            "tahun": tahun,
+            "mengetahui": mengetahui,
+            "nip_mengetahui": nip_mengetahui,
+            "konsultan": konsultan,
+            "tenaga_ahli": tenaga_ahli or [],
+            "logo_placeholder": True,
+        }
+
+    def add_ded_legend(self, notasi_items: List[Tuple[str, str]]) -> None:
+        """
+        Add a NOTASI | KETERANGAN legend table (Indonesian drawing convention).
+
+        Args:
+            notasi_items: List of (notation, description) tuples
+        """
+        table = self.document.add_table(rows=len(notasi_items) + 1, cols=2)
+        table.style = "Light Grid Accent 1"
+
+        # Header
+        header = table.rows[0].cells
+        header[0].text = "NOTASI"
+        header[1].text = "KETERANGAN"
+        for cell in header:
+            self._shade_cell(cell, self.config["primary_color"])
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+                    r.font.color.rgb = RGBColor(255, 255, 255)
+
+        # Body
+        for row_idx, (notasi, ket) in enumerate(notasi_items, start=1):
+            cells = table.rows[row_idx].cells
+            cells[0].text = notasi
+            cells[1].text = ket
+            for cell in cells:
+                for p in cell.paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(9)
+                        r.font.name = "Calibri"
+
+        logger.info(f"DED legend added: {len(notasi_items)} items")
+
+    def add_ded_material_table(
+        self,
+        headers: List[str],
+        rows: List[List[str]],
+        title: Optional[str] = None,
+    ) -> None:
+        """
+        Add a material / specification / BOQ table for DED.
+
+        Args:
+            headers: Column headers
+            rows: List of rows (each a list of strings)
+            title: Optional table title
+        """
+        if title:
+            p = self.document.add_paragraph()
+            p.paragraph_format.space_before = Pt(8)
+            r = p.add_run(title)
+            r.font.bold = True
+            r.font.size = Pt(11)
+            self._apply_color(r, self.config["primary_color"])
+
+        table = self.document.add_table(rows=len(rows) + 1, cols=len(headers))
+        table.style = "Light Grid Accent 1"
+
+        # Header
+        for i, h in enumerate(headers):
+            cell = table.rows[0].cells[i]
+            cell.text = h
+            self._shade_cell(cell, self.config["primary_color"])
+            for p in cell.paragraphs:
+                for r in p.runs:
+                    r.font.bold = True
+                    r.font.size = Pt(9)
+                    r.font.color.rgb = RGBColor(255, 255, 255)
+
+        # Body
+        for row_idx, row_data in enumerate(rows, start=1):
+            cells = table.rows[row_idx].cells
+            for col_idx, val in enumerate(row_data):
+                cells[col_idx].text = str(val)
+                for p in cells[col_idx].paragraphs:
+                    for r in p.runs:
+                        r.font.size = Pt(9)
+
+        logger.info(f"DED material table added: {len(rows)} rows x {len(headers)} cols")
+
+    def add_ded_cover(
+        self,
+        main_title: str,
+        subtitle: Optional[str] = None,
+        kegiatan: Optional[str] = None,
+        pekerjaan: Optional[str] = None,
+        lokasi: Optional[str] = None,
+        tahun: Optional[str] = None,
+        instansi: Optional[str] = None,
+        logo_placeholder: bool = True,
+    ) -> None:
+        """
+        Add an Indonesian DED cover page.
+
+        Layout mirrors Indonesian government/consultant cover:
+        - Top: [LOGO INSTANSI]
+        - Center: INSTANSI name (all caps)
+        - Main title: DETAIL ENGINEERING DESIGN (DED)
+        - Subtitle: PEKERJAAN / description
+        - Bottom: kegiatan, lokasi, tahun
+        """
+        # Top spacing
+        for _ in range(2):
+            self.document.add_paragraph()
+
+        # Logo placeholder
+        if logo_placeholder:
+            logo_para = self.document.add_paragraph()
+            logo_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            logo_run = logo_para.add_run("[LOGO INSTANSI]")
+            logo_run.font.bold = True
+            logo_run.font.size = Pt(14)
+            logo_run.font.color.rgb = RGBColor(150, 150, 150)
+            self._apply_shading(logo_para, self.config["light_gray"])
+
+        # Instansi
+        if instansi:
+            p = self.document.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r = p.add_run(instansi.upper())
+            r.font.bold = True
+            r.font.size = Pt(14)
+            r.font.name = "Times New Roman"
+
+        # Spacer
+        self.document.add_paragraph()
+
+        # Main title
+        p = self.document.add_paragraph()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r = p.add_run(main_title)
+        r.font.bold = True
+        r.font.size = Pt(22)
+        r.font.name = "Times New Roman"
+        self._apply_color(r, self.config["primary_color"])
+
+        # Subtitle / pekerjaan
+        if subtitle or pekerjaan:
+            p = self.document.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r = p.add_run(subtitle or pekerjaan or "")
+            r.font.size = Pt(12)
+            r.font.name = "Times New Roman"
+
+        # Spacer
+        for _ in range(3):
+            self.document.add_paragraph()
+
+        # Bottom metadata
+        meta_items = []
+        if kegiatan:
+            meta_items.append(("KEGIATAN", kegiatan))
+        if pekerjaan:
+            meta_items.append(("PEKERJAAN", pekerjaan))
+        if lokasi:
+            meta_items.append(("LOKASI", lokasi))
+        if tahun:
+            meta_items.append(("TAHUN", tahun))
+
+        for label, value in meta_items:
+            p = self.document.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            r1 = p.add_run(f"{label}: ")
+            r1.font.bold = True
+            r1.font.size = Pt(10)
+            r2 = p.add_run(value)
+            r2.font.size = Pt(10)
+            r2.font.name = "Times New Roman"
+
+        self.document.add_page_break()
+        self._has_cover = True
+        logger.info(f"DED cover page added: {main_title}")
+
     def save(self, output_path: str) -> Path:
         """
         Save the document to a file.

@@ -50,11 +50,12 @@ The router identifies which design discipline(s) a project requires and loads th
 - **Environment Design:** Game worlds, virtual spaces, immersive environments, procedural content
 - **Service Design:** System behaviors, operational flows, human-machine interaction patterns
 - **Information Architecture:** Data models, content structures, navigation systems
+- **Detail Engineering Design (DED):** Indonesian consultant-style construction documentation — drawing registers, per-sheet title blocks, denah/tampak/potongan/detail at SNI scales, structural reinforcement schedules, MEP layouts, landscape/vegetasi, RAB/spesifikasi. See [./references/14-templates-and-examples.md](./references/14-templates-and-examples.md) §"Indonesian DED Master Template" for the canonical template and `utils/docx_generator.py` DED primitives (`add_ded_cover`, `add_daftar_gambar`, `add_ded_drawing_sheet`, `add_ded_legend`, `add_ded_material_table`, `set_ded_project`, `add_ded_title_block`).
 
 **Decision criteria:**
 The router uses a classification matrix based on: physical vs. digital, static vs. real-time, individual vs. systemic, and atomic vs. compound scope.
 
-**When to use:** Early in the project, after the Core Intelligence layer has been established. Use the router to determine which reference documents from layers 3-7 apply to your project.
+**When to use:** Early in the project, after the Core Intelligence layer has been established. Use the router to determine which reference documents from layers 3-7 apply to your project. For DED work, also load `references/14-templates-and-examples.md` §"Indonesian DED Master Template" and use the `ded`/`construction`/`structural`/`mep`/`landscape` formatters in `utils/design_formatter.py`.
 
 ---
 

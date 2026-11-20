@@ -440,6 +440,270 @@ class UIUXFormatter(BaseDesignFormatter):
             "Prototyping Standards",
         ]
 
+class ConstructionFormatter(BaseDesignFormatter):
+    """
+    Formatter for Detail Engineering Design (DED) — Indonesian consultant convention.
+
+    Covers architectural documentation for building/construction projects:
+    site plans, floor plans, elevations, sections, details, material schedules.
+    Typical discipline code: ARS.
+    """
+
+    def __init__(self):
+        """Initialize Construction formatter."""
+        super().__init__("Construction / DED")
+        self.primary_color = (41, 128, 185)      # Professional blue
+        self.accent_color = (52, 73, 94)          # Dark blue-gray
+        self.secondary_colors = [
+            (127, 127, 127),    # Concrete gray
+            (139, 69, 19),      # Wood brown
+            (46, 204, 113),     # Approved green
+        ]
+
+    def get_color_palette(self) -> Dict[str, Tuple[int, int, int]]:
+        """Return construction/DED color palette."""
+        return {
+            "primary": self.primary_color,
+            "accent": self.accent_color,
+            "concrete": (127, 127, 127),
+            "steel": (192, 192, 192),
+            "brick": (178, 34, 34),
+            "glass": (173, 216, 230),
+            "approved": (34, 139, 34),
+            "waterproofing": (30, 144, 255),
+        }
+
+    def get_styling_guidelines(self) -> Dict[str, Any]:
+        """Return construction/DED styling guidelines."""
+        return {
+            "font_family": "Calibri",
+            "drawing_scales": ["1:20", "1:25", "1:50", "1:100", "1:150", "NTS"],
+            "include_title_block": True,
+            "include_daftar_gambar": True,
+            "include_legend_notasi": True,
+            "include_dimensions": True,
+            "material_callouts_inline": True,
+            "indonesian_convention": True,
+            "section_headings": {
+                1: {"size": 24, "bold": True, "color": "primary"},
+                2: {"size": 16, "bold": True, "color": "accent"},
+                3: {"size": 13, "bold": True, "color": "primary"},
+            },
+        }
+
+    def get_section_structure(self) -> List[str]:
+        """Return recommended DED section structure (Indonesian convention)."""
+        return [
+            "Identitas Dokumen",
+            "Daftar Gambar",
+            "Site Plan dan Master Plan",
+            "Denah Rencana Arsitektur",
+            "Tampak dan Potongan",
+            "Detail Arsitektur",
+            "Denah Struktur dan Penulangan",
+            "Detail Pondasi dan Sloof",
+            "Denah MEP (Elektrikal/Plumbing)",
+            "Landscape dan Vegetasi",
+            "Visualisasi 3D",
+            "RAB / Spesifikasi / Kuesioner",
+        ]
+
+
+class StructuralFormatter(BaseDesignFormatter):
+    """
+    Formatter for structural engineering drawings within a DED.
+
+    Covers: column plans, beam plans, foundation plans, reinforcement details,
+    sloof/ring beam. Typical discipline code: STR.
+    """
+
+    def __init__(self):
+        """Initialize Structural formatter."""
+        super().__init__("Structural Engineering")
+        self.primary_color = (44, 62, 80)        # Dark slate
+        self.accent_color = (127, 127, 127)      # Concrete gray
+        self.secondary_colors = [
+            (192, 192, 192),    # Steel
+            (139, 69, 19),      # Wood formwork
+            (41, 128, 185),     # Annotation blue
+        ]
+
+    def get_color_palette(self) -> Dict[str, Tuple[int, int, int]]:
+        """Return structural color palette."""
+        return {
+            "primary": self.primary_color,
+            "accent": self.accent_color,
+            "concrete": (127, 127, 127),
+            "steel": (105, 105, 105),
+            "rebar": (178, 34, 34),
+            "formwork": (210, 180, 140),
+            "annotation": (41, 128, 185),
+        }
+
+    def get_styling_guidelines(self) -> Dict[str, Any]:
+        """Return structural styling guidelines."""
+        return {
+            "font_family": "Calibri",
+            "drawing_scales": ["1:20", "1:25", "1:50", "1:100", "1:150", "NTS"],
+            "include_reinforcement_schedule": True,
+            "include_concrete_grade": True,
+            "include_steel_grade": True,
+            "include_dimensions_mm": True,
+            "section_headings": {
+                1: {"size": 24, "bold": True, "color": "primary"},
+                2: {"size": 16, "bold": True, "color": "accent"},
+                3: {"size": 13, "bold": True, "color": "primary"},
+            },
+        }
+
+    def get_section_structure(self) -> List[str]:
+        """Return structural DED section structure."""
+        return [
+            "Denah Kolom",
+            "Detail Penulangan Kolom",
+            "Denah Balok",
+            "Detail Penulangan Balok / Ring Balk",
+            "Denah Pondasi",
+            "Detail Pondasi",
+            "Denah Sloof",
+            "Detail Sloof",
+            "Spesifikasi Beton dan Baja",
+            "Perhitungan Struktur (jika ada)",
+        ]
+
+
+class MEPFormatter(BaseDesignFormatter):
+    """
+    Formatter for MEP (Mechanical, Electrical, Plumbing) drawings in a DED.
+
+    Covers: electrical layouts, stop-contact plans, roof drainage, plumbing.
+    Typical discipline code: MEP.
+    """
+
+    def __init__(self):
+        """Initialize MEP formatter."""
+        super().__init__("MEP Engineering")
+        self.primary_color = (230, 126, 34)      # Orange (electrical convention)
+        self.accent_color = (41, 128, 185)       # Blue (water)
+        self.secondary_colors = [
+            (155, 89, 182),     # Sewage purple
+            (46, 204, 113),     # Approved green
+            (44, 62, 80),       # Dark slate
+        ]
+
+    def get_color_palette(self) -> Dict[str, Tuple[int, int, int]]:
+        """Return MEP color palette."""
+        return {
+            "primary": self.primary_color,
+            "accent": self.accent_color,
+            "electrical": (230, 126, 34),
+            "water": (52, 152, 219),
+            "sewage": (155, 89, 182),
+            "gas": (231, 76, 60),
+            "approved": (46, 204, 113),
+        }
+
+    def get_styling_guidelines(self) -> Dict[str, Any]:
+        """Return MEP styling guidelines."""
+        return {
+            "font_family": "Calibri",
+            "drawing_scales": ["1:20", "1:25", "1:50", "1:100", "1:150", "NTS"],
+            "include_circuit_diagrams": True,
+            "include_equipment_schedules": True,
+            "include_wire_sizes": True,
+            "include_pipe_diameters": True,
+            "section_headings": {
+                1: {"size": 24, "bold": True, "color": "primary"},
+                2: {"size": 16, "bold": True, "color": "accent"},
+                3: {"size": 13, "bold": True, "color": "primary"},
+            },
+        }
+
+    def get_section_structure(self) -> List[str]:
+        """Return MEP DED section structure."""
+        return [
+            "Denah Stop Kontak",
+            "Denah Pencahayaan",
+            "Denah Elektrikal (Power)",
+            "Detail Panel dan Stop Kontak",
+            "Denah Plumbing Air Bersih",
+            "Denah Plumbing Air Kotor / Resap",
+            "Denah Roof Drain",
+            "Single Line Diagram",
+            "Daftar Peralatan MEP",
+        ]
+
+
+class LandscapeFormatter(BaseDesignFormatter):
+    """
+    Formatter for landscape / site works drawings in a DED.
+
+    Covers: vegetation plans, hard/soft material, paving, drainage, site details.
+    Typical discipline code: LAND.
+    """
+
+    def __init__(self):
+        """Initialize Landscape formatter."""
+        super().__init__("Landscape / Site Works")
+        self.primary_color = (39, 174, 96)       # Green
+        self.accent_color = (44, 62, 80)         # Dark slate
+        self.secondary_colors = [
+            (127, 127, 127),    # Paving gray
+            (139, 69, 19),      # Wood brown
+            (52, 152, 219),     # Water blue
+        ]
+
+    def get_color_palette(self) -> Dict[str, Tuple[int, int, int]]:
+        """Return landscape color palette."""
+        return {
+            "primary": self.primary_color,
+            "accent": self.accent_color,
+            "vegetation": (39, 174, 96),
+            "paving": (127, 127, 127),
+            "water": (52, 152, 219),
+            "wood": (139, 69, 19),
+            "soil": (160, 82, 45),
+        }
+
+    def get_styling_guidelines(self) -> Dict[str, Any]:
+        """Return landscape styling guidelines."""
+        return {
+            "font_family": "Calibri",
+            "drawing_scales": ["1:50", "1:100", "1:150", "NTS"],
+            "include_plant_schedule": True,
+            "include_hard_soft_material": True,
+            "include_drilling_details": True,
+            "section_headings": {
+                1: {"size": 24, "bold": True, "color": "primary"},
+                2: {"size": 16, "bold": True, "color": "accent"},
+                3: {"size": 13, "bold": True, "color": "primary"},
+            },
+        }
+
+    def get_section_structure(self) -> List[str]:
+        """Return landscape DED section structure."""
+        return [
+            "Denah Rencana Vegetasi",
+            "Indeks Rencana Vegetasi",
+            "Denah Rencana Hard & Soft Material",
+            "Indeks Rencana Hard & Soft Material",
+            "Detail Paving dan Drainase",
+            "Detail Lampu Taman",
+            "Detail Furniture Taman",
+            "Spesifikasi Tanaman",
+        ]
+
+
+class DEDFormatter(ConstructionFormatter):
+    """
+    Convenience alias: DED is produced primarily through the ConstructionFormatter.
+    Provides the canonical Indonesian DED discipline entry point.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "DED (Detail Engineering Design)"
+
 
 class FormatterFactory:
     """
@@ -455,6 +719,15 @@ class FormatterFactory:
         "3d": ThreeDFormatter,
         "uiux": UIUXFormatter,
         "ui/ux": UIUXFormatter,  # Alternative name
+        "ded": DEDFormatter,
+        "detail-engineering-design": DEDFormatter,
+        "construction": ConstructionFormatter,
+        "arsitektur": ConstructionFormatter,
+        "structural": StructuralFormatter,
+        "struktur": StructuralFormatter,
+        "mep": MEPFormatter,
+        "landscape": LandscapeFormatter,
+        "landscaping": LandscapeFormatter,
     }
 
     @classmethod
@@ -514,8 +787,12 @@ class FormatterFactory:
             >>> for name, formatter in formatters.items():
             ...     print(f"{name}: {formatter.get_color_palette()}")
         """
-        return {
-            name: formatter_class()
-            for name, formatter_class in cls._formatters.items()
-            if name != "ui/ux"  # Skip alias
-        }
+        # Canonical keys only (skip aliases pointing to same formatter class)
+        seen = set()
+        result = {}
+        for name, formatter_class in cls._formatters.items():
+            if formatter_class in seen:
+                continue
+            seen.add(formatter_class)
+            result[name] = formatter_class()
+        return result

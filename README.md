@@ -1,243 +1,162 @@
-# DID DOCX Generator - Design Instructions Document Generation Engine
+# DID — Design Instructions & Detail Engineering Design (DED) Document Engine
 
-Professional Python implementation for generating high-quality Design Instructions Documents (DIDs) in Microsoft Word format (.docx).
+**DID** adalah skill + Python engine untuk menghasilkan dokumen desain teknis profesional dalam format **Microsoft Word (.docx)**. Kini diperluas dengan kemampuan **DED (Detail Engineering Design)** mengikuti konvensi konsultan perencana Indonesia — acuan implementasi: DED Landmark Kampus III UIN Walisongo Semarang (2022).
 
-## Overview
+> **Dua mode dalam satu engine:**
+> - **DID (produk/desain)** — design system, komponen, guideline UI/UX, arsitektur, interior, 3D, grafis
+> - **DED (konstruksi/engineering)** — gambar kerja, denah, tampak, potongan, detail, struktur, MEP, landscape, RAB
 
-The DID DOCX Generator provides a production-ready document generation engine for creating professional Design Instructions Documents across multiple design disciplines:
+## Fitur
 
-- **Architectural Design** - Building standards, construction details, material specs
-- **Interior Design** - Space planning, materials, lighting, aesthetics
-- **Graphic Design** - Branding guidelines, typography, color systems
-- **3D Design** - Mesh specs, textures, lighting, animation principles
-- **UI/UX Design** - Component systems, interaction patterns, accessibility
+### DID (Design Instructions Document)
+- Cover page dengan branding
+- Auto Table of Contents
+- Heading hierarchy (H1–H3)
+- Tabel profesional, list, gambar + caption, code block, highlight box
+- Footer dengan page numbering
+- Discipline formatter: `architecture`, `interior`, `graphic`, `3d`, `uiux`
 
-## Features
+### DED (Detail Engineering Design)
+- **Cover ala instansi Indonesia** (`add_ded_cover`) — logo placeholder, instansi, kegiatan, pekerjaan, lokasi, tahun
+- **Daftar Gambar** register (`add_daftar_gambar`) — `NO | KODE | JUDUL | SKALA | JML | DISIPLIN`
+- **Drawing sheet per halaman** (`add_ded_drawing_sheet`) — gambar + caption + title block + register footer `KODE | NO.GMR | JML.GMR | DISIPLIN`
+- **Title block konsisten** (`set_ded_project` + `add_ded_title_block`) — logo, metadata proyek, blok *Mengetahui* (Pejabat Penandatangan + NIP), *Konsultan Perencana*, tabel *Tenaga Ahli* per disiplin, kolom *Paraf*
+- **Legend notasi** (`add_ded_legend`) — tabel `NOTASI | KETERANGAN` untuk material finish
+- **Tabel material/RAB/spesifikasi** (`add_ded_material_table`)
+- **Discipline formatter DED**: `ded`, `construction`/`arsitektur`, `structural`/`struktur`, `mep`, `landscape`/`landscaping`
+- **Skala SNI**: `1:150` siteplan, `1:100` denah, `1:50` tampak/detail, `1:20`–`1:25` detail & penulangan, `NTS` perspektif
+- **Struktur bab DED Indonesia**: Identitas → Daftar Gambar → Site/Master → Hard/Soft Material + Vegetasi → Arsitektur per Zona → Struktur → MEP → Landscape → Visualisasi → RAB/Spesifikasi/Kuesioner
 
-### Core Capabilities
-- Professional document styling and formatting
-- Cover pages with custom branding
-- Auto-generated Table of Contents
-- Multiple heading levels with proper hierarchy
-- Headers and footers with page numbering
-- Styled paragraphs with custom formatting
-- Professional table formatting with colors
-- Image insertion with captions
-- Bulleted and numbered lists
-- Code blocks with monospace fonts
-- Highlight boxes (info, warning, note)
-- Section breaks and page breaks
-- Comprehensive style management
+## Instalasi
 
-### Design Discipline Support
-- Discipline-specific color palettes
-- Formatting guidelines per discipline
-- Recommended section structures
-- Professional styling rules
-
-### Production Quality
-- Full error handling and validation
-- Comprehensive logging
-- Type hints for better code quality
-- Clear docstrings on all methods
-- Zero placeholders - fully functional
-
-## Installation
-
-### Requirements
-- Python 3.7 or higher
-- Dependencies listed in requirements.txt
-
-### Setup
-
-1. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt   # python-docx>=0.8.11, pillow, lxml, python-dotenv
+cp .env.example .env              # opsional — kustomisasi font/warna/margin
 ```
-
-2. Copy configuration template:
-```bash
-cp .env.example .env
-```
-
-3. Customize .env as needed for your environment
 
 ## Quick Start
 
-### Basic Usage
+### DID — Design Instructions Document
 
 ```python
 from utils.docx_generator import DIDDocumentGenerator
 
-# Create a new document
-generator = DIDDocumentGenerator(
-    title="My Design Standards",
-    author="Design Team"
-)
-
-# Add cover page
-generator.add_cover_page(
-    main_title="Design Standards",
-    version="1.0",
-    subtitle="Professional Design Guide",
-    company="ACME Corp"
-)
-
-# Add table of contents
-generator.add_table_of_contents()
-
-# Add content
-generator.add_heading("Chapter 1: Design Principles", level=1)
-generator.add_paragraph("Your content here...")
-
-# Save document
-generator.save("output/my_did.docx")
+gen = DIDDocumentGenerator(title="Design Standards", author="Design Team")
+gen.add_cover_page("My Design Standards", "1.0", subtitle="Professional Guide")
+gen.add_table_of_contents()
+gen.add_heading("Chapter 1: Design Principles", level=1)
+gen.add_paragraph("Your content here...")
+gen.add_footer_with_page_numbers()
+gen.save("output/my_did.docx")
 ```
 
-## Running Examples
+### DED — Detail Engineering Design
+
+```python
+from utils.docx_generator import DIDDocumentGenerator
+from utils.design_formatter import FormatterFactory
+
+fmt = FormatterFactory.get_formatter("ded")
+gen = DIDDocumentGenerator(
+    title="DED - Perencanaan Landmark",
+    author="Konsultan Perencana",
+    config={"primary_color": fmt.primary_color, "accent_color": fmt.accent_color},
+)
+
+gen.add_ded_cover(
+    main_title="DETAIL ENGINEERING DESIGN (DED)",
+    subtitle="PEKERJAAN PERENCANAAN PEMBANGUNAN LANDMARK",
+    kegiatan="Prasarana PTKIN",
+    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
+    lokasi="Kampus 3 Universitas Islam Negeri",
+    tahun="Tahun 2026",
+    instansi="UNIVERSITAS ISLAM NEGERI (UIN) CONTOH",
+)
+
+gen.set_ded_project(
+    kegiatan="Prasarana PTKIN",
+    pekerjaan="Perencanaan Pembangunan Landmark Kampus III",
+    lokasi="Kampus 3 Universitas Islam Negeri",
+    tahun="Tahun 2026",
+    mengetahui="Drs. H. TEGUH SARWONO, M.Si",
+    nip_mengetahui="196512141985031001",
+    konsultan="PT. KONSULTAN PERENCANA",
+    tenaga_ahli=[("Arsitektur", "Timbul Hadiwidayat, ST, IAI"),
+                ("Struktur", "Sabdho Tri Manggolo, ST")],
+)
+
+gen.add_daftar_gambar([
+    {"no": 1, "kode": "00.01", "judul": "SITEPLAN", "skala": "1:150", "jumlah": 1, "disiplin": "ARS"},
+    {"no": 2, "kode": "02.01", "judul": "DENAH KOLOM", "skala": "1:150", "jumlah": 1, "disiplin": "STR"},
+])
+
+gen.add_ded_drawing_sheet(
+    judul_gambar="DENAH RENCANA",
+    skala="1:150",
+    kode="00.03",
+    no_gambar="3",
+    jumlah_gambar=28,
+    disiplin="ARS",
+    image_path="denah.png",   # opsional — None render placeholder
+)
+
+gen.add_ded_legend([("FIN.CAT DINDING PUTIH", "Cat putih matte")])
+gen.add_footer_with_page_numbers("DED - Perencanaan Landmark")
+gen.save("output/ded.docx")
+```
+
+## Menjalankan Contoh
 
 ```bash
-# Generate sample documents
+# DID — contoh desain arsitektur & UI/UX
 python examples/generate_sample_did.py
 
-# Output:
-# - output/sample_architectural_did.docx
-# - output/sample_uiux_did.docx
+# DED — contoh Detail Engineering Design Indonesia
+python examples/generate_sample_ded.py
+# → output/sample_ded_landmark.docx  (28 sheet, ~45 KB)
 ```
 
-## Project Structure
+## Struktur Proyek
 
 ```
-DID_SKILL/
-├── requirements.txt              # Python dependencies
-├── .env.example                  # Configuration template
-├── README.md                     # This file
+DID/
+├── SKILL.md                          # Skill definition + workflow (termasuk route DED)
+├── README.md                         # File ini
+├── ARCHITECTURE.md
+├── QUICK_START.md / PACKAGING_GUIDE.md / DEPLOYMENT_GUIDE.md
+├── CHANGELOG.md / CONTRIBUTING.md / LICENSE
+├── requirements.txt / .env.example
 ├── utils/
-│   ├── __init__.py              # Package init
-│   ├── docx_generator.py        # Main DOCX generator engine
-│   └── design_formatter.py      # Discipline-specific formatters
+│   ├── docx_generator.py             # DIDDocumentGenerator — DID + DED primitives
+│   └── design_formatter.py           # 5 DID + 5 DED discipline formatters
+├── references/
+│   ├── 01..13-*.md                   # DID intelligence layers
+│   └── 14-templates-and-examples.md  # DID templates + Indonesian DED Master Template
 ├── examples/
-│   ├── __init__.py              # Examples package init
-│   └── generate_sample_did.py   # Complete working example
-└── output/                       # Generated documents (created on first run)
+│   ├── generate_sample_did.py        # Contoh DID arsitektur + UI/UX
+│   └── generate_sample_ded.py        # Contoh DED lengkap (28 sheet)
+└── docs/
+    ├── GETTING_STARTED.md / API_REFERENCE.md / EXAMPLES.md / FAQ.md
 ```
 
-## API Overview
-
-### DIDDocumentGenerator
-
-Main class with methods for:
-- Document structure (cover, TOC, page breaks)
-- Content (headings, paragraphs, lists)
-- Tables and data
-- Media (images, code blocks)
-- Formatting (footers, page numbers)
-- File management (save, summary)
-
-### Design Formatters
-
-Discipline-specific configuration:
-- ArchitecturalFormatter
-- InteriorFormatter
-- GraphicFormatter
-- ThreeDFormatter
-- UIUXFormatter
-
-### FormatterFactory
-
-Simple factory for getting formatters by discipline name.
-
-## Documentation
-
-Full API documentation is in docstrings. Key methods:
+## API DED (ringkas)
 
 ```python
-# Document structure
-add_cover_page(main_title, version, subtitle=None, company=None)
-add_table_of_contents()
-add_page_break()
-add_section_break(section_title=None)
-
-# Content
-add_heading(text, level=1, add_to_toc=True)
-add_paragraph(text, style="Normal", bold=False, italic=False, indent=0.0)
-add_bulleted_list(items, level=0)
-add_numbered_list(items)
-
-# Tables and data
-add_table(rows, cols, header_row=None, data=None)
-
-# Media
-add_image(image_path, width=5.5, caption=None, align="center")
-add_code_block(code, language="text")
-add_highlight_box(text, box_type="info")
-
-# Formatting and saving
-add_footer_with_page_numbers(text="")
-save(output_path)
-get_summary()
+add_ded_cover(main_title, subtitle, kegiatan, pekerjaan, lokasi, tahun, instansi, logo_placeholder=True)
+set_ded_project(kegiatan, pekerjaan, lokasi, tahun, mengetahui, nip_mengetahui, konsultan, tenaga_ahli)
+add_daftar_gambar(rows=[{no, kode, judul, skala, jumlah, disiplin}])
+add_ded_drawing_sheet(judul_gambar, skala, kode, no_gambar, jumlah_gambar, disiplin, image_path=None, image_width=6.0, caption=None)
+add_ded_title_block(kegiatan, pekerjaan, lokasi, tahun, mengetahui, nip_mengetahui, konsultan, tenaga_ahli, logo_placeholder=True)
+add_ded_legend(notasi_items=[(notasi, keterangan)])
+add_ded_material_table(headers, rows, title=None)
 ```
 
-## Configuration
+## Referensi
 
-Edit .env file (created from .env.example) to customize:
+- `references/14-templates-and-examples.md` § *Indonesian DED Master Template* — struktur bab, skala, contoh register/title block/legend
+- `SKILL.md` § Layer 2 (Discipline Router) — DED sebagai first-class discipline
+- `examples/generate_sample_ded.py` — runnable end-to-end
 
-- Output directories
-- Font families and sizes
-- Colors (RGB tuples)
-- Margins and spacing
-- Document features (TOC, footers, etc.)
-- Design discipline
-- Logging levels
+## Lisensi
 
-## Examples
-
-See examples/generate_sample_did.py for:
-- Architectural Design Standards document (comprehensive example)
-- UI/UX Design System document (alternative discipline)
-
-Both demonstrate all major features with real content.
-
-## Error Handling
-
-All methods include proper validation and error handling:
-
-```python
-try:
-    generator.add_image("design.png", width=4.5)
-except FileNotFoundError:
-    print("Image file not found")
-
-try:
-    generator.save("output/doc.txt")  # Wrong extension
-except ValueError:
-    print("File must be .docx")
-```
-
-## Logging
-
-Enable comprehensive logging to see all operations:
-
-```python
-import logging
-logging.basicConfig(level=logging.INFO)
-```
-
-## Best Practices
-
-1. Use discipline-specific formatters for appropriate colors
-2. Plan document structure using recommended sections
-3. Keep content concise and well-organized
-4. Test documents after generation in Word
-5. Use consistent styling throughout
-6. Add images to support text
-7. Include metadata (cover, TOC)
-8. Ensure accessibility with proper contrast
-
-## Support
-
-For issues:
-1. Check error messages and logging
-2. Review example code
-3. Verify configuration in .env
-4. Check method docstrings for parameters
+Lihat `LICENSE`.

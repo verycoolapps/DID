@@ -5,9 +5,39 @@ All notable changes to DID (Document Intelligence Design) are documented in this
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-11-17
+## [1.1.0] - 2026-11-20
 
-### Added - Initial World-Class Release
+### Added — DED (Detail Engineering Design) Capability
+
+#### New Discipline: DED
+- **DED route** registered in `SKILL.md` Layer 2 (Discipline Router) as a first-class discipline
+- **`DEDFormatter`** (alias of `ConstructionFormatter`) plus new formatters:
+  - `ConstructionFormatter` / `arsitektur` — architectural DED (disiplin ARS)
+  - `StructuralFormatter` / `struktur` — structural drawings & reinforcement (STR)
+  - `MEPFormatter` / `mep` — electrical/plumbing layouts (MEP)
+  - `LandscapeFormatter` / `landscaping` — vegetasi, hard/soft material (LAND)
+- `FormatterFactory.get_all_formatters()` now deduplicates aliases
+
+#### New DOCX Primitives (`utils/docx_generator.py`)
+- `add_ded_cover(...)` — Indonesian instansi cover page
+- `set_ded_project(...)` — reusable project metadata (kegiatan/pekerjaan/lokasi/tahun + signatories + tenaga ahli)
+- `add_ded_title_block(...)` — per-sheet title block: logo, metadata, *Mengetahui* (PA + NIP), *Konsultan Perencana*, *Tenaga Ahli* table, *Paraf*
+- `add_daftar_gambar(rows)` — drawing register table (`NO | KODE | JUDUL | SKALA | JML | DISIPLIN`)
+- `add_ded_drawing_sheet(...)` — one-page drawing sheet (image + caption + title block + register footer + page break); graceful placeholder when no image
+- `add_ded_legend(notasi_items)` — `NOTASI | KETERANGAN` legend table
+- `add_ded_material_table(headers, rows, title)` — material/specification/RAB tables
+
+#### Documentation
+- `references/14-templates-and-examples.md` — new section **"Indonesian DED Master Template"** with full chapter structure, SNI scales, register/title-block/legend examples, and copy-paste Python usage
+- `README.md` rewritten to present DID + DED dual capability
+- `examples/generate_sample_ded.py` — runnable end-to-end DED sample producing `output/sample_ded_landmark.docx`
+
+#### Reference
+- Indonesian DED convention modeled on UIN Walisongo Landmark Kampus III DED (2022)
+
+---
+
+## [1.0.0] - 2024-11-17
 
 #### Core Features
 - **DIDDocumentGenerator**: Production-ready document generation engine
